@@ -2,6 +2,8 @@
 
 namespace SaeedVaziry\Monitoring\System;
 
+use Illuminate\Support\Str;
+
 class CPU implements SystemResource
 {
     /**
@@ -9,7 +11,7 @@ class CPU implements SystemResource
      */
     public function usage()
     {
-        $usage = shell_exec(file_get_contents(__DIR__ . '/../../scripts/cpu.sh'));
+        $usage = Str::replace("\n", '', shell_exec(file_get_contents(__DIR__ . '/../../scripts/cpu.sh')));
         if (is_numeric($usage)) {
             return $usage;
         }

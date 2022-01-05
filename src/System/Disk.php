@@ -2,6 +2,8 @@
 
 namespace SaeedVaziry\Monitoring\System;
 
+use Illuminate\Support\Str;
+
 class Disk implements SystemResource
 {
     /**
@@ -9,7 +11,7 @@ class Disk implements SystemResource
      */
     public function usage()
     {
-        $usage = shell_exec(file_get_contents(__DIR__ . '/../../scripts/disk.sh'));
+        $usage = Str::replace("\n", '', shell_exec(file_get_contents(__DIR__ . '/../../scripts/disk.sh')));
         if (is_numeric($usage)) {
             return $usage;
         }
