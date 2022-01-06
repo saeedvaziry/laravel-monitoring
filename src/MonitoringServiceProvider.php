@@ -27,14 +27,17 @@ class MonitoringServiceProvider extends ServiceProvider
             return new RecordCommand();
         });
 
+        // publish config
         $this->publishes([
             __DIR__ . '/../config/monitoring.php' => config_path('monitoring.php')
-        ], 'monitoring-config');
+        ], ['monitoring-config', 'laravel-config']);
 
+        // publish migrations
         $this->publishes([
-            __DIR__ . '/../migrations/' => database_path('migrations')
-        ], 'monitoring-migrations');
+            __DIR__ . '/../database/migrations/' => database_path('migrations')
+        ], ['monitoring-migrations', 'laravel-migrations']);
 
+        // publish assets
         $this->publishes([
             __DIR__ . '/../public' => public_path('vendor/monitoring'),
         ], ['monitoring-assets', 'laravel-assets']);
@@ -49,7 +52,7 @@ class MonitoringServiceProvider extends ServiceProvider
     {
         // load migrations
         if ($this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(__DIR__ . '/../migrations/');
+            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/');
         }
 
         // register command

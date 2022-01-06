@@ -92,7 +92,7 @@
         methods: {
             getData() {
                 this.loading = true;
-                axios.get('/monitoring/records?duration=' + this.duration).then((res) => {
+                axios.get(window.app.prefix + '/records?duration=' + this.duration).then((res) => {
                     this.loaded = true;
                     this.instances = res.data.instances;
                     this.records = res.data.records;

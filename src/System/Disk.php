@@ -7,12 +7,12 @@ use Illuminate\Support\Str;
 class Disk implements SystemResource
 {
     /**
-     * @return int|mixed
+     * @return float|mixed
      */
     public function usage()
     {
         if (app()->environment() === 'testing') {
-            return rand(0, 100);
+            return 50;
         }
 
         $usage = Str::replace("\n", '', shell_exec(file_get_contents(__DIR__ . '/../../scripts/disk.sh')));

@@ -84,7 +84,7 @@
         methods: {
             save() {
                 this.saving = true;
-                axios.post('/monitoring/alerts', this.form).then((res) => {
+                axios.post(window.app.prefix + '/alerts', this.form).then((res) => {
                     this.form = res.data.alert;
                     this.errors = {};
                     this.saved = true;
