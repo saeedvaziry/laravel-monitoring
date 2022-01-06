@@ -36,15 +36,14 @@ This package works only on Linux servers.
 
 You can find the configuration at `config/monitoring.php`.
 
-`instance_name`: This is your current server's name, And the data will be collected under this name.
+| Key             | Description                                                                                                                                                                                                                                                                                 |
+|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `instance_name` | This is your current server's name, And the data will be collected under this name.                                                                                                                                                                                                         |
+| `routes`        | You can change the URL prefix of the monitoring dashboard. Also, You can protect the route by applying middlewares to it.                                                                                                                                                                   |
+| `models`        | If you want to customize the models, define yours and update this config.                                                                                                                                                                                                                   |
+| `chart_colors`  | Chart colors are customizable by this config.                                                                                                                                                                                                                                               |
+| `notifications` | Currently, we support `Slack` and `Email` channels for notifications. However, You can add your custom channels. To add a custom channel, Create a class and implement it by `SaeedVaziry\Monitoring\Channels\Channel` and then add the class to `channels` under the `notifications` item. |
 
-`routes`: You can change the URL prefix of the monitoring dashboard. Also, You can protect the route by applying middlewares to it.
-
-`models`: If you want to customize the models, define yours and update this config.
-
-`chart_colors`: Chart colors are customizable by this config.
-
-`notifications`: Currently, we support `Slack` and `Email` channels for notifications. However, You can add your custom channels. To add a custom channel, Create a class and implement it by `SaeedVaziry\Monitoring\Channels\Channel` and then add the class to `channels` under the `notifications` item.
 
 ## Multi-Server support
 
