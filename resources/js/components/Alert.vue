@@ -71,7 +71,7 @@
                 modal: false,
                 saving: false,
                 form: this.alert ? this.alert : {
-                    instance_name: this.instance_name,
+                    instance_name: this.instance,
                     cpu: '',
                     memory: '',
                     disk: '',
