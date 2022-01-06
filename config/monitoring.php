@@ -64,5 +64,10 @@ return [
          * Fill it if you want the Slack channel
          */
         'slack_webhook_url' => env('MONITORING_SLACK_WEBHOOK_URL')
-    ]
+    ],
+
+    /*
+     * You can enable or disable migrations here
+     */
+    'migrations' => true
 ];
