@@ -2,7 +2,7 @@
     <div class="inline-flex">
         <a href="javascript:" class="text-indigo-500 font-bold" @click="modal = true">Alerts</a>
         <v-dialog-form max-width="xl" :show="modal" @close="modal = false">
-            <template #title>Configure alert for {{ alert.instance_name }}</template>
+            <template #title>Configure alert for {{ instance }}</template>
             <template #form>
                 <div class="col-span-6">
                     <v-label for="cpu" value="CPU over than" />
@@ -54,6 +54,7 @@
         name: "VAlert",
         components: {VButton, VSecondaryButton, VInputError, VInput, VLabel, VDialogForm},
         props: {
+            instance: String,
             alert: {
                 type: Object,
                 default: {
@@ -69,7 +70,13 @@
             return {
                 modal: false,
                 saving: false,
-                form: this.alert,
+                form: this.alert ? this.alert : {
+                    instance_name: this.instance_name,
+                    cpu: '',
+                    memory: '',
+                    disk: '',
+                    occurred: '',
+                },
                 errors: {},
                 saved: false,
             }

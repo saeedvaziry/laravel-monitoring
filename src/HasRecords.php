@@ -26,25 +26,16 @@ trait HasRecords
 
     /**
      * @param array $instances
-     * @param $duration
      * @return array
      */
-    protected function getRecords(array $instances, $duration)
+    protected function getRecords(array $instances)
     {
         $records = [];
         foreach ($instances as $instance) {
             $records[$instance] = app(config('monitoring.models.monitoring_record'))
                 ->where('instance_name', $instance)
-                ->where(function ($query) use ($duration) {
-                    if ($duration == 'hour') {
-                        $query->whereRaw(DB::raw('mod(minute(created_at),5) = 0'));
-                    }
-                    if ($duration == 'day') {
-                        $query->whereRaw(DB::raw('minute(created_at) = 0'));
-                    }
-                })
                 ->orderByDesc('id')
-                ->take($duration == 'hour' ? 12 : 24)
+                ->take(60)
                 ->get();
         }
 
