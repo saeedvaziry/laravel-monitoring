@@ -50,11 +50,6 @@ class MonitoringServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // load migrations
-        if ($this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/');
-        }
-
         // register command
         $this->commands(RecordCommand::class);
 
