@@ -46,7 +46,7 @@ jobs:
       - name: Run test suite
         run: vendor/bin/phpunit --verbose
         env:
-          DB_HOST: localhost
+          DB_HOST: 127.0.0.1
           DB_DATABASE: test_db
           DB_USERNAME: user
           DB_PASSWORD: password
