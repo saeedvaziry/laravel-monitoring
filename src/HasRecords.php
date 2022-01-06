@@ -3,6 +3,7 @@
 namespace SaeedVaziry\Monitoring;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 trait HasRecords
 {
@@ -25,16 +26,25 @@ trait HasRecords
 
     /**
      * @param array $instances
+     * @param $duration
      * @return array
      */
-    protected function getRecords(array $instances)
+    protected function getRecords(array $instances, $duration)
     {
         $records = [];
         foreach ($instances as $instance) {
             $records[$instance] = app(config('monitoring.models.monitoring_record'))
                 ->where('instance_name', $instance)
+                ->where(function ($query) use ($duration) {
+                    if ($duration == 'hour') {
+                        $query->whereRaw(DB::raw('mod(minute(created_at),5) = 0'));
+                    }
+                    if ($duration == 'day') {
+                        $query->whereRaw(DB::raw('minute(created_at) = 0'));
+                    }
+                })
                 ->orderByDesc('id')
-                ->take(60)
+                ->take($duration == 'hour' ? 12 : 24)
                 ->get();
         }
 
@@ -64,25 +74,25 @@ trait HasRecords
      */
     protected function getRecordsChart(Collection $records)
     {
+        $labels = [];
         $cpu = [];
         $memory = [];
         $disk = [];
-        $times = [];
         for ($i = $records->count() - 1; $i >= 0; $i--) {
             $cpu[] = $records[$i]->cpu;
             $memory[] = $records[$i]->memory;
             $disk[] = $records[$i]->disk;
-            $times[] = $records[$i]->created_at;
+            $labels[] = $records[$i]->created_at;
         }
 
         return [
-            'labels' => $times,
+            'labels' => $labels,
             'datasets' => [
                 [
                     'label' => 'CPU',
                     'data' => $cpu,
                     'borderWidth' => 1.5,
-                    'lineTension' => 0.5,
+                    'fill' => false,
                     'borderColor' => config('monitoring.chart_colors.cpu.border_color'),
                     'backgroundColor' => config('monitoring.chart_colors.cpu.background_color')
                 ],
@@ -90,7 +100,7 @@ trait HasRecords
                     'label' => 'Memory',
                     'data' => $memory,
                     'borderWidth' => 1.5,
-                    'lineTension' => 0.5,
+                    'fill' => false,
                     'borderColor' => config('monitoring.chart_colors.memory.border_color'),
                     'backgroundColor' => config('monitoring.chart_colors.memory.background_color')
                 ],
@@ -98,7 +108,7 @@ trait HasRecords
                     'label' => 'Disk',
                     'data' => $disk,
                     'borderWidth' => 1.5,
-                    'lineTension' => 0.5,
+                    'fill' => false,
                     'borderColor' => config('monitoring.chart_colors.disk.border_color'),
                     'backgroundColor' => config('monitoring.chart_colors.disk.background_color')
                 ]
@@ -109,6 +119,7 @@ trait HasRecords
     /**
      * @param array $records
      * @return array
+     * @throws \Exception
      */
     protected function getCharts(array $records)
     {

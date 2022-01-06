@@ -11,15 +11,7 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.options({
-    terser: {
-        terserOptions: {
-            compress: {
-                drop_console: true,
-            },
-        },
-    },
-})
+mix
     .setPublicPath('public')
     .js('resources/js/app.js', 'public/js')
     .vue()
@@ -27,5 +19,6 @@ mix.options({
         require('postcss-import'),
         require('tailwindcss'),
     ])
+    .webpackConfig(require('./webpack.config'))
     .disableNotifications()
     .version();

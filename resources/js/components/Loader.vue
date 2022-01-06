@@ -17,7 +17,7 @@
 
 <script>
     export default {
-        name: 'Loader',
+        name: 'VLoader',
         props: {
             color: {
                 type: String,

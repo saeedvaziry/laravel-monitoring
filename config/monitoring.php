@@ -21,7 +21,8 @@ return [
      * Models
      */
     'models' => [
-        'monitoring_record' => \SaeedVaziry\Monitoring\Models\MonitoringRecord::class
+        'monitoring_record' => \SaeedVaziry\Monitoring\Models\MonitoringRecord::class,
+        'monitoring_alert' => \SaeedVaziry\Monitoring\Models\MonitoringAlert::class,
     ],
 
     /*
@@ -40,5 +41,28 @@ return [
             'border_color' => '#9333ea',
             'background_color' => '#d8b4fe'
         ],
+    ],
+
+    /*
+     * Supported channels are Email and Slack, but you can add
+     * your own channels class to the `channels` array.
+     * Make sure that you implementing `\SaeedVaziry\Monitoring\Channels\Channel`
+     * interface in your custom channels
+     */
+    'notifications' => [
+        'channels' => [
+            \SaeedVaziry\Monitoring\Channels\Email::class,
+            // \SaeedVaziry\Monitoring\Channels\Slack::class
+        ],
+
+        /*
+         * Fill it if you want the Email channel
+         */
+        'email' => env('MONITORING_EMAIL_ADDRESS'),
+
+        /*
+         * Fill it if you want the Slack channel
+         */
+        'slack_webhook_url' => env('MONITORING_SLACK_WEBHOOK_URL')
     ]
 ];

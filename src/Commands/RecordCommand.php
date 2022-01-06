@@ -4,6 +4,7 @@ namespace SaeedVaziry\Monitoring\Commands;
 
 use Exception;
 use Illuminate\Console\Command;
+use SaeedVaziry\Monitoring\Actions\CheckForAlerts;
 use SaeedVaziry\Monitoring\Actions\RecordUsage;
 use SaeedVaziry\Monitoring\Facades\Monitoring;
 
@@ -42,10 +43,12 @@ class RecordCommand extends Command
      */
     public function handle()
     {
-        app(RecordUsage::class)->record([
+        tap(app(RecordUsage::class)->record([
             'cpu' => Monitoring::cpu()->usage(),
             'memory' => Monitoring::memory()->usage(),
             'disk' => Monitoring::disk()->usage(),
-        ]);
+        ]), function ($record) {
+            app(CheckForAlerts::class)->check($record);
+        });
     }
 }
