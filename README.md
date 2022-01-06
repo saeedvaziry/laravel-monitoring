@@ -6,6 +6,7 @@
 Monitor your Laravel applications server with a beautiful dashboard and get notified if something gets wrong!
 
 ![](demo.png)
+![](demo2.png)
 
 ## Supported OS
 
