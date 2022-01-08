@@ -3,7 +3,7 @@
 [![](https://img.shields.io/packagist/v/saeedvaziry/laravel-monitoring.svg?style=flat-square)](https://packagist.org/packages/saeedvaziry/laravel-monitoring)
 ![](https://github.com/saeedvaziry/laravel-monitoring/workflows/tests/badge.svg)
 
-Monitor your Laravel applications server with a beautiful dashboard and get notified if something gets wrong!
+Monitor your Laravel applications server with a beautiful dashboard and get notified if anything gets wrong!
 
 ![](demo.png)
 ![](demo2.png)
