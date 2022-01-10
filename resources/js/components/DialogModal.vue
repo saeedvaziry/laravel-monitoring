@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <div class="px-6 py-4 bg-gray-100 text-right">
+        <div class="px-6 py-4 bg-gray-100 dark:bg-gray-700 text-right">
             <slot name="footer">
             </slot>
         </div>

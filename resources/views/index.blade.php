@@ -13,7 +13,7 @@
         }
     </script>
 </head>
-<body class="bg-gray-100 min-h-screen text-gray-700 min-w-max">
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen text-gray-700 min-w-max">
     <div id="app" class="min-h-screen">
         <app></app>
     </div>
