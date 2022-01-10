@@ -16,19 +16,27 @@ This package works only on Linux servers.
 
 **1)** Install the latest version from composer
 
-    composer require saeedvaziry/laravel-monitoring
+```shell
+composer require saeedvaziry/laravel-monitoring
+```
 
 **2)** Publish vendors
 
-    php artisan vendor:publish --provider="SaeedVaziry\Monitoring\MonitoringServiceProvider"
+```shell
+php artisan vendor:publish --provider="SaeedVaziry\Monitoring\MonitoringServiceProvider"
+```
 
 **3)** Run migrations
 
-    php artisan migrate
+```shell
+php artisan migrate
+```
 
 **4)** Set up a cronjob to collect data
 
-    * * * * * php /path/to/laravel/artisan monitoring:record
+```shell
+php /path/to/laravel/artisan monitoring:record
+```
 
 **5)** Visit `/monitoring` to see the statistics.
 
@@ -63,20 +71,23 @@ You can use `php artisan monitoring:record` command to collect the data manually
 
 Add the bellow line to your `config/app.php` file, Under the `allias`:
 
+```php
     'aliases' => [
         ...
         'Monitoring' => \SaeedVaziry\Monitoring\Facades\Monitoring::class
         ...
     ];
+```
 
 With this Facade you can access the server's resource usages.
 
 Example usages:
 
+```php
     Monitoring::cpu()->usage(); // returns CPU usage
     Monitoring::memory()->usage(); // returns Memory usage
     Monitoring::disk()->usage(); // returns Disk usage
-
+```
 
 ## Contributing
 
@@ -84,10 +95,10 @@ Please feel free to submit an issue or open a PR.
 
 ## Credits
 
-* Laravel
-* Vue.js
-* Tailwindcss
-* Fontawesome Icons
+* [Laravel](https://laravel.com/)
+* [Vue.js](https://vuejs.org/)
+* [Tailwindcss](https://tailwindcss.com/)
+* [Fontawesome Icons](https://fontawesome.com/)
 
 ## License
 
