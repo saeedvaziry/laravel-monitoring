@@ -72,11 +72,11 @@ You can use `php artisan monitoring:record` command to collect the data manually
 Add the bellow line to your `config/app.php` file, Under the `allias`:
 
 ```php
-    'aliases' => [
-        ...
-        'Monitoring' => \SaeedVaziry\Monitoring\Facades\Monitoring::class
-        ...
-    ];
+'aliases' => [
+    ...
+    'Monitoring' => \SaeedVaziry\Monitoring\Facades\Monitoring::class
+    ...
+];
 ```
 
 With this Facade you can access the server's resource usages.
@@ -84,9 +84,9 @@ With this Facade you can access the server's resource usages.
 Example usages:
 
 ```php
-    Monitoring::cpu()->usage(); // returns CPU usage
-    Monitoring::memory()->usage(); // returns Memory usage
-    Monitoring::disk()->usage(); // returns Disk usage
+Monitoring::cpu()->usage(); // returns CPU usage
+Monitoring::memory()->usage(); // returns Memory usage
+Monitoring::disk()->usage(); // returns Disk usage
 ```
 
 ## Contributing
