@@ -2,7 +2,6 @@
 
 namespace SaeedVaziry\Monitoring\Actions;
 
-use Illuminate\Support\Str;
 use SaeedVaziry\Monitoring\Exceptions\OSIsNotSupported;
 use SaeedVaziry\Monitoring\Models\MonitoringRecord;
 
@@ -19,7 +18,7 @@ class RecordUsage
 
         $model = config('monitoring.models.monitoring_record');
         $record = new $model([
-            'instance_name' => Str::replace(' ', '', config('monitoring.instance_name')),
+            'instance_name' => str_replace(' ', '', config('monitoring.instance_name')),
             'cpu' => $resources['cpu'] ?? null,
             'memory' => $resources['memory'] ?? null,
             'disk' => $resources['disk'] ?? null,
