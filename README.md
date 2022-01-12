@@ -35,7 +35,7 @@ php artisan migrate
 **4)** Set up a cronjob to collect data
 
 ```shell
-* * * * * php /path/to/laravel/artisan monitoring:record
+* * * * * cd /path-to-your-project && php artisan monitoring:record
 ```
 
 **5)** Visit `/monitoring` to see the statistics.
