@@ -2,8 +2,6 @@
 
 namespace SaeedVaziry\Monitoring\System;
 
-use Illuminate\Support\Str;
-
 class Memory implements SystemResource
 {
     /**
@@ -15,7 +13,7 @@ class Memory implements SystemResource
             return 50;
         }
 
-        $usage = Str::replace("\n", '', shell_exec(file_get_contents(__DIR__ . '/../../scripts/memory.sh')));
+        $usage = str_replace("\n", '', shell_exec(file_get_contents(__DIR__ . '/../../scripts/memory.sh')));
         if (is_numeric($usage)) {
             return $usage;
         }
