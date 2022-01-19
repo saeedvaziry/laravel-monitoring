@@ -89,6 +89,15 @@ Monitoring::memory()->usage(); // returns Memory usage
 Monitoring::disk()->usage(); // returns Disk usage
 ```
 
+## Purge Records
+
+Without purging, the `monitoring_records` table can accumulate records very quickly. To mitigate this, you should schedule the monitoring:purge Artisan command to run daily or any time you wish.
+You can also, Set the `purge_before` configuration at `config/monitoring.php`.
+
+```php
+$schedule->command('monitoring:purge')->daily();
+```
+
 ## Contributing
 
 Please feel free to submit an issue or open a PR.

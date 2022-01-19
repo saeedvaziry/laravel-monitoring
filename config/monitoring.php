@@ -69,5 +69,11 @@ return [
     /*
      * You can enable or disable migrations here
      */
-    'migrations' => true
+    'migrations' => true,
+
+    /*
+     * Purge recorded data
+     * Supports PHP strtotime options like: '-1 day', '-2 hours', ...
+     */
+    'purge_before' => '-1 day'
 ];

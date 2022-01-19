@@ -9,7 +9,7 @@ class RecordCommandTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testUpdateIps()
+    public function testRecord()
     {
         $this->artisan('monitoring:record');
 

@@ -3,6 +3,7 @@
 namespace SaeedVaziry\Monitoring;
 
 use Illuminate\Support\ServiceProvider;
+use SaeedVaziry\Monitoring\Commands\PurgeCommand;
 use SaeedVaziry\Monitoring\Commands\RecordCommand;
 
 class MonitoringServiceProvider extends ServiceProvider
@@ -25,6 +26,9 @@ class MonitoringServiceProvider extends ServiceProvider
         // register command
         $this->app->singleton('command.monitoring.record', function () {
             return new RecordCommand();
+        });
+        $this->app->singleton('command.monitoring.purge', function () {
+            return new PurgeCommand();
         });
 
         // publish config
@@ -57,6 +61,7 @@ class MonitoringServiceProvider extends ServiceProvider
 
         // register command
         $this->commands(RecordCommand::class);
+        $this->commands(PurgeCommand::class);
 
         // register routes
         $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
@@ -74,6 +79,7 @@ class MonitoringServiceProvider extends ServiceProvider
     {
         return [
             'command.monitoring.record',
+            'command.monitoring.purge',
         ];
     }
 }
