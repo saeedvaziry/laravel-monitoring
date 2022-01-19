@@ -41,7 +41,7 @@ class PurgeCommand extends Command
      */
     public function handle()
     {
-        MonitoringRecord::query()
+        app(config('monitoring.models.monitoring_record'))
             ->where(
                 'created_at',
                 '<',
