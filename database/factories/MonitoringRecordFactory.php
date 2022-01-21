@@ -21,9 +21,9 @@ class MonitoringRecordFactory extends Factory
     {
         return [
             'instance_name' => config('monitoring.instance_name'),
-            'cpu' => 10,
-            'memory' => 20,
-            'disk' => 30,
+            'cpu'           => 10,
+            'memory'        => 20,
+            'disk'          => 30,
         ];
     }
 }

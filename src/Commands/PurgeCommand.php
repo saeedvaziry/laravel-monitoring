@@ -4,7 +4,6 @@ namespace SaeedVaziry\Monitoring\Commands;
 
 use Exception;
 use Illuminate\Console\Command;
-use SaeedVaziry\Monitoring\Models\MonitoringRecord;
 
 class PurgeCommand extends Command
 {
@@ -35,9 +34,9 @@ class PurgeCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return void
      * @throws Exception
      *
+     * @return void
      */
     public function handle()
     {
