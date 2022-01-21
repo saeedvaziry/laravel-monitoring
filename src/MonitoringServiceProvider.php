@@ -2,6 +2,7 @@
 
 namespace SaeedVaziry\Monitoring;
 
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\ServiceProvider;
 use SaeedVaziry\Monitoring\Commands\PurgeCommand;
 use SaeedVaziry\Monitoring\Commands\RecordCommand;
@@ -68,6 +69,12 @@ class MonitoringServiceProvider extends ServiceProvider
 
         // register views
         $this->loadViewsFrom(__DIR__ . '/../resources/views/', 'monitoring');
+
+        $this->app->booted(function () {
+            $schedule = $this->app->make(Schedule::class);
+            $frequency = config('monitoring.frequency');
+            $schedule->command('monitoring:record')->$frequency();
+        });
     }
 
     /**

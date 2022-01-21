@@ -75,5 +75,13 @@ return [
      * Purge recorded data
      * Supports PHP strtotime options like: '-1 day', '-2 hours', ...
      */
-    'purge_before' => '-1 day'
+    'purge_before' => '-1 day',
+
+    /*
+     * How frequently to record the data
+     * Available options are Laravel schedule frequency names
+     * https://laravel.com/docs/8.x/scheduling#schedule-frequency-options
+     * invalid names will cause your app to crash!
+     */
+    'frequency' => 'hourly',
 ];
