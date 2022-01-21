@@ -9,6 +9,7 @@ class Email extends BaseChannel
 {
     /**
      * @param $record
+     *
      * @return void
      */
     public function send($record)

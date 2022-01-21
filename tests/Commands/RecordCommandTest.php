@@ -14,7 +14,7 @@ class RecordCommandTest extends TestCase
         $this->artisan('monitoring:record');
 
         $this->assertDatabaseHas('monitoring_records', [
-            'instance_name' => config('monitoring.instance_name')
+            'instance_name' => config('monitoring.instance_name'),
         ]);
     }
 }

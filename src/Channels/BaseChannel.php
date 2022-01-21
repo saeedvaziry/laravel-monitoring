@@ -9,19 +9,20 @@ abstract class BaseChannel implements Channel
      */
     protected function subject($record)
     {
-        return __("Resource usage for :instance", ['instance' => $record->instance_name]);
+        return __('Resource usage for :instance', ['instance' => $record->instance_name]);
     }
 
     /**
      * @param $record
+     *
      * @return string
      */
     protected function message($record)
     {
         return __("CPU: :cpu\n Memory: :memory\n Disk: :disk", [
-            'cpu' => $record->cpu,
+            'cpu'    => $record->cpu,
             'memory' => $record->memory,
-            'disk' => $record->disk,
+            'disk'   => $record->disk,
         ]);
     }
 }

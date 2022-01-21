@@ -22,17 +22,17 @@ class CheckForAlertsTest extends TestCase
 
         $alert = MonitoringAlert::query()->create([
             'instance_name' => config('monitoring.instance_name'),
-            'cpu' => 20,
-            'memory' => 40,
-            'disk' => 80
+            'cpu'           => 20,
+            'memory'        => 40,
+            'disk'          => 80,
         ]);
 
         // In `testing` environment this will record `50` for all resources
         $this->artisan('monitoring:record');
 
         $this->assertDatabaseHas('monitoring_alerts', [
-            'id' => $alert->id,
-            'occurred' => 1
+            'id'       => $alert->id,
+            'occurred' => 1,
         ]);
 
         Mail::assertSent(ResourceUsageMail::class);
@@ -47,17 +47,17 @@ class CheckForAlertsTest extends TestCase
 
         $alert = MonitoringAlert::query()->create([
             'instance_name' => config('monitoring.instance_name'),
-            'cpu' => 70,
-            'memory' => 55,
-            'disk' => 90
+            'cpu'           => 70,
+            'memory'        => 55,
+            'disk'          => 90,
         ]);
 
         // In `testing` environment this will record `50` for all resources
         $this->artisan('monitoring:record');
 
         $this->assertDatabaseHas('monitoring_alerts', [
-            'id' => $alert->id,
-            'occurred' => 0
+            'id'       => $alert->id,
+            'occurred' => 0,
         ]);
 
         Mail::assertNothingSent();

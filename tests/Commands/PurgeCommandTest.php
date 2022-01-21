@@ -15,7 +15,7 @@ class PurgeCommandTest extends TestCase
         config()->set('monitoring.purge_before', '-1 day');
 
         MonitoringRecordFactory::times(10)->create([
-            'created_at' => now()->subDays(10)
+            'created_at' => now()->subDays(10),
         ]);
 
         $this->artisan('monitoring:purge');
@@ -28,11 +28,11 @@ class PurgeCommandTest extends TestCase
         config()->set('monitoring.purge_before', '-1 hour');
 
         MonitoringRecordFactory::times(10)->create([
-            'created_at' => now()->subMinutes(10)
+            'created_at' => now()->subMinutes(10),
         ]);
 
         MonitoringRecordFactory::times(10)->create([
-            'created_at' => now()->subDays(10)
+            'created_at' => now()->subDays(10),
         ]);
 
         $this->artisan('monitoring:purge');

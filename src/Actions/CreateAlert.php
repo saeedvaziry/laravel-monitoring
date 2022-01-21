@@ -9,8 +9,10 @@ class CreateAlert
 {
     /**
      * @param array $input
-     * @return mixed
+     *
      * @throws ValidationException
+     *
+     * @return mixed
      */
     public function create(array $input)
     {
@@ -19,7 +21,7 @@ class CreateAlert
         $alert = app(config('monitoring.models.monitoring_alert'))
             ->where('instance_name', $input['instance_name'])
             ->firstOrCreate([
-                'instance_name' => $input['instance_name']
+                'instance_name' => $input['instance_name'],
             ], $input);
         $alert->update($input);
 
@@ -28,13 +30,15 @@ class CreateAlert
 
     /**
      * @param array $input
-     * @return void
+     *
      * @throws ValidationException
+     *
+     * @return void
      */
     protected function validate(array $input)
     {
         $rules = [
-            'instance_name' => 'required'
+            'instance_name' => 'required',
         ];
 
         if (isset($input['cpu']) && !empty($input['cpu'])) {
@@ -56,9 +60,9 @@ class CreateAlert
             (empty($input['cpu']) && empty($input['memory']) && empty($input['disk']))
         ) {
             throw ValidationException::withMessages([
-                'cpu' => __('You must fill at least one item'),
+                'cpu'    => __('You must fill at least one item'),
                 'memory' => __('You must fill at least one item'),
-                'disk' => __('You must fill at least one item'),
+                'disk'   => __('You must fill at least one item'),
             ])->errorBag('createAlert');
         }
     }

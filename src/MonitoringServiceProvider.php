@@ -21,7 +21,7 @@ class MonitoringServiceProvider extends ServiceProvider
         });
 
         // merge config file
-        $this->mergeConfigFrom(__DIR__ . '/../config/monitoring.php', 'monitoring');
+        $this->mergeConfigFrom(__DIR__.'/../config/monitoring.php', 'monitoring');
 
         // register command
         $this->app->singleton('command.monitoring.record', function () {
@@ -33,17 +33,17 @@ class MonitoringServiceProvider extends ServiceProvider
 
         // publish config
         $this->publishes([
-            __DIR__ . '/../config/monitoring.php' => config_path('monitoring.php')
+            __DIR__.'/../config/monitoring.php' => config_path('monitoring.php'),
         ], ['monitoring-config', 'laravel-config']);
 
         // publish migrations
         $this->publishes([
-            __DIR__ . '/../database/migrations/' => database_path('migrations')
+            __DIR__.'/../database/migrations/' => database_path('migrations'),
         ], ['monitoring-migrations', 'laravel-migrations']);
 
         // publish assets
         $this->publishes([
-            __DIR__ . '/../public' => public_path('vendor/monitoring'),
+            __DIR__.'/../public' => public_path('vendor/monitoring'),
         ], ['monitoring-assets', 'laravel-assets']);
     }
 
@@ -56,7 +56,7 @@ class MonitoringServiceProvider extends ServiceProvider
     {
         // load migrations
         if (config('monitoring.migrations', true) && $this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/');
+            $this->loadMigrationsFrom(__DIR__.'/../database/migrations/');
         }
 
         // register command
@@ -64,10 +64,10 @@ class MonitoringServiceProvider extends ServiceProvider
         $this->commands(PurgeCommand::class);
 
         // register routes
-        $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
+        $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
 
         // register views
-        $this->loadViewsFrom(__DIR__ . '/../resources/views/', 'monitoring');
+        $this->loadViewsFrom(__DIR__.'/../resources/views/', 'monitoring');
     }
 
     /**

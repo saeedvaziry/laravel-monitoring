@@ -20,8 +20,8 @@ class MonitoringRecord extends Model
      * @var string[]
      */
     protected $casts = [
-        'cpu' => 'float',
+        'cpu'    => 'float',
         'memory' => 'float',
-        'disk' => 'float',
+        'disk'   => 'float',
     ];
 }

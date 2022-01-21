@@ -13,8 +13,8 @@ return [
      * Route configurations
      */
     'routes' => [
-        'prefix' => 'monitoring',
-        'middlewares' => ['web']
+        'prefix'      => 'monitoring',
+        'middlewares' => ['web'],
     ],
 
     /*
@@ -22,7 +22,7 @@ return [
      */
     'models' => [
         'monitoring_record' => \SaeedVaziry\Monitoring\Models\MonitoringRecord::class,
-        'monitoring_alert' => \SaeedVaziry\Monitoring\Models\MonitoringAlert::class,
+        'monitoring_alert'  => \SaeedVaziry\Monitoring\Models\MonitoringAlert::class,
     ],
 
     /*
@@ -30,16 +30,16 @@ return [
      */
     'chart_colors' => [
         'cpu' => [
-            'border_color' => '#4f46e5',
-            'background_color' => '#a5b4fc'
+            'border_color'     => '#4f46e5',
+            'background_color' => '#a5b4fc',
         ],
         'memory' => [
-            'border_color' => '#e11d48',
-            'background_color' => '#fda4af'
+            'border_color'     => '#e11d48',
+            'background_color' => '#fda4af',
         ],
         'disk' => [
-            'border_color' => '#9333ea',
-            'background_color' => '#d8b4fe'
+            'border_color'     => '#9333ea',
+            'background_color' => '#d8b4fe',
         ],
     ],
 
@@ -63,7 +63,7 @@ return [
         /*
          * Fill it if you want the Slack channel
          */
-        'slack_webhook_url' => env('MONITORING_SLACK_WEBHOOK_URL')
+        'slack_webhook_url' => env('MONITORING_SLACK_WEBHOOK_URL'),
     ],
 
     /*
@@ -75,5 +75,5 @@ return [
      * Purge recorded data
      * Supports PHP strtotime options like: '-1 day', '-2 hours', ...
      */
-    'purge_before' => '-1 day'
+    'purge_before' => '-1 day',
 ];

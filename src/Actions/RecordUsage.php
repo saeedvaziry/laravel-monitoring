@@ -9,8 +9,10 @@ class RecordUsage
 {
     /**
      * @param array $resources
-     * @return MonitoringRecord
+     *
      * @throws \Exception
+     *
+     * @return MonitoringRecord
      */
     public function record(array $resources)
     {
@@ -19,9 +21,9 @@ class RecordUsage
         $model = config('monitoring.models.monitoring_record');
         $record = new $model([
             'instance_name' => str_replace(' ', '', config('monitoring.instance_name')),
-            'cpu' => $resources['cpu'] ?? null,
-            'memory' => $resources['memory'] ?? null,
-            'disk' => $resources['disk'] ?? null,
+            'cpu'           => $resources['cpu'] ?? null,
+            'memory'        => $resources['memory'] ?? null,
+            'disk'          => $resources['disk'] ?? null,
         ]);
         $record->save();
 
@@ -29,8 +31,9 @@ class RecordUsage
     }
 
     /**
-     * @return void
      * @throws \Exception
+     *
+     * @return void
      */
     protected function checkOS()
     {

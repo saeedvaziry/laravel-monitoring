@@ -34,7 +34,7 @@ class ResourceUsageMail extends Mailable
     {
         return $this->markdown('monitoring::emails.resource-usage', [
             'subject' => $this->subject,
-            'record' => $this->record
+            'record'  => $this->record,
         ]);
     }
 }

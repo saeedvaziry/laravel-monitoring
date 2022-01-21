@@ -21,9 +21,9 @@ class MonitoringAlert extends Model
      * @var string[]
      */
     protected $casts = [
-        'cpu' => 'float',
-        'memory' => 'float',
-        'disk' => 'float',
+        'cpu'      => 'float',
+        'memory'   => 'float',
+        'disk'     => 'float',
         'occurred' => 'integer',
     ];
 }

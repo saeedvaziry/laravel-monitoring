@@ -12,13 +12,14 @@ class MonitoringRecordController extends Controller
     use HasAlerts;
 
     /**
-     * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function records(Request $request)
     {
         $request->validate([
-            'duration' => 'in:hour'
+            'duration' => 'in:hour',
         ]);
 
         $instances = $this->getInstances();
@@ -26,9 +27,9 @@ class MonitoringRecordController extends Controller
 
         return response()->json([
             'instances' => $instances,
-            'records' => $this->getLastRecords($instances),
-            'charts' => $charts,
-            'alerts' => $this->getAlerts($instances)
+            'records'   => $this->getLastRecords($instances),
+            'charts'    => $charts,
+            'alerts'    => $this->getAlerts($instances),
         ]);
     }
 }

@@ -6,6 +6,7 @@ trait HasAlerts
 {
     /**
      * @param array $instances
+     *
      * @return array
      */
     public function getAlerts(array $instances)

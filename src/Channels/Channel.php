@@ -6,6 +6,7 @@ interface Channel
 {
     /**
      * @param $record
+     *
      * @return void
      */
     public function send($record);

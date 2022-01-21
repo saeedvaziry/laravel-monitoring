@@ -37,16 +37,16 @@ class RecordCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return void
      * @throws Exception
      *
+     * @return void
      */
     public function handle()
     {
         tap(app(RecordUsage::class)->record([
-            'cpu' => Monitoring::cpu()->usage(),
+            'cpu'    => Monitoring::cpu()->usage(),
             'memory' => Monitoring::memory()->usage(),
-            'disk' => Monitoring::disk()->usage(),
+            'disk'   => Monitoring::disk()->usage(),
         ]), function ($record) {
             app(CheckForAlerts::class)->check($record);
         });

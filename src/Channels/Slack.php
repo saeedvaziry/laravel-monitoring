@@ -8,12 +8,13 @@ class Slack extends BaseChannel
 {
     /**
      * @param $record
+     *
      * @return void
      */
     public function send($record)
     {
         Http::post(config('monitoring.notifications.slack_webhook_url'), [
-            'text' => '*' . $this->subject($record) . '*' . "\n" . $this->message($record),
+            'text' => '*'.$this->subject($record).'*'."\n".$this->message($record),
         ]);
     }
 }

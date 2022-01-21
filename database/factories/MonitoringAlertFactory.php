@@ -21,10 +21,10 @@ class MonitoringAlertFactory extends Factory
     {
         return [
             'instance_name' => config('monitoring.instance_name'),
-            'cpu' => 40,
-            'memory' => 30,
-            'disk' => 20,
-            'occurred' => 0
+            'cpu'           => 40,
+            'memory'        => 30,
+            'disk'          => 20,
+            'occurred'      => 0,
         ];
     }
 }

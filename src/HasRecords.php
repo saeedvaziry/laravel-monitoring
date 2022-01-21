@@ -3,7 +3,6 @@
 namespace SaeedVaziry\Monitoring;
 
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 
 trait HasRecords
 {
@@ -26,6 +25,7 @@ trait HasRecords
 
     /**
      * @param array $instances
+     *
      * @return array
      */
     protected function getRecords(array $instances)
@@ -44,6 +44,7 @@ trait HasRecords
 
     /**
      * @param array $instances
+     *
      * @return array
      */
     protected function getLastRecords(array $instances)
@@ -61,6 +62,7 @@ trait HasRecords
 
     /**
      * @param Collection $records
+     *
      * @return array
      */
     protected function getRecordsChart(Collection $records)
@@ -77,40 +79,42 @@ trait HasRecords
         }
 
         return [
-            'labels' => $labels,
+            'labels'   => $labels,
             'datasets' => [
                 [
-                    'label' => 'CPU',
-                    'data' => $cpu,
-                    'borderWidth' => 1.5,
-                    'fill' => false,
-                    'borderColor' => config('monitoring.chart_colors.cpu.border_color'),
-                    'backgroundColor' => config('monitoring.chart_colors.cpu.background_color')
+                    'label'           => 'CPU',
+                    'data'            => $cpu,
+                    'borderWidth'     => 1.5,
+                    'fill'            => false,
+                    'borderColor'     => config('monitoring.chart_colors.cpu.border_color'),
+                    'backgroundColor' => config('monitoring.chart_colors.cpu.background_color'),
                 ],
                 [
-                    'label' => 'Memory',
-                    'data' => $memory,
-                    'borderWidth' => 1.5,
-                    'fill' => false,
-                    'borderColor' => config('monitoring.chart_colors.memory.border_color'),
-                    'backgroundColor' => config('monitoring.chart_colors.memory.background_color')
+                    'label'           => 'Memory',
+                    'data'            => $memory,
+                    'borderWidth'     => 1.5,
+                    'fill'            => false,
+                    'borderColor'     => config('monitoring.chart_colors.memory.border_color'),
+                    'backgroundColor' => config('monitoring.chart_colors.memory.background_color'),
                 ],
                 [
-                    'label' => 'Disk',
-                    'data' => $disk,
-                    'borderWidth' => 1.5,
-                    'fill' => false,
-                    'borderColor' => config('monitoring.chart_colors.disk.border_color'),
-                    'backgroundColor' => config('monitoring.chart_colors.disk.background_color')
-                ]
+                    'label'           => 'Disk',
+                    'data'            => $disk,
+                    'borderWidth'     => 1.5,
+                    'fill'            => false,
+                    'borderColor'     => config('monitoring.chart_colors.disk.border_color'),
+                    'backgroundColor' => config('monitoring.chart_colors.disk.background_color'),
+                ],
             ],
         ];
     }
 
     /**
      * @param array $records
-     * @return array
+     *
      * @throws \Exception
+     *
+     * @return array
      */
     protected function getCharts(array $records)
     {
