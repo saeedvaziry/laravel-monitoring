@@ -23,7 +23,7 @@ composer require saeedvaziry/laravel-monitoring
 **2)** Publish vendors
 
 ```shell
-php artisan vendor:publish --provider="SaeedVaziry\Monitoring\MonitoringServiceProvider"
+php artisan monitoring:publish
 ```
 
 **3)** Run migrations
