@@ -28,17 +28,17 @@ class PublishCommand extends Command
     public function handle()
     {
         $this->call('vendor:publish', [
-            '--tag' => 'monitoring-config',
+            '--tag'   => 'monitoring-config',
             '--force' => $this->option('force'),
         ]);
 
         $this->call('vendor:publish', [
-            '--tag' => 'monitoring-assets',
+            '--tag'   => 'monitoring-assets',
             '--force' => true,
         ]);
 
         $this->call('vendor:publish', [
-            '--tag' => 'monitoring-migrations',
+            '--tag'   => 'monitoring-migrations',
             '--force' => $this->option('force'),
         ]);
     }

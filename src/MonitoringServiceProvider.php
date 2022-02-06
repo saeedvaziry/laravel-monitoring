@@ -22,7 +22,7 @@ class MonitoringServiceProvider extends ServiceProvider
         });
 
         // merge config file
-        $this->mergeConfigFrom(__DIR__ . '/../config/monitoring.php', 'monitoring');
+        $this->mergeConfigFrom(__DIR__.'/../config/monitoring.php', 'monitoring');
     }
 
     /**
@@ -40,7 +40,7 @@ class MonitoringServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register publishing
+     * Register publishing.
      *
      * @return void
      */
@@ -49,23 +49,23 @@ class MonitoringServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             // publish config
             $this->publishes([
-                __DIR__ . '/../config/monitoring.php' => config_path('monitoring.php')
+                __DIR__.'/../config/monitoring.php' => config_path('monitoring.php'),
             ], ['monitoring-config', 'laravel-config']);
 
             // publish migrations
             $this->publishes([
-                __DIR__ . '/../database/migrations/' => database_path('migrations')
+                __DIR__.'/../database/migrations/' => database_path('migrations'),
             ], ['monitoring-migrations', 'laravel-migrations']);
 
             // publish assets
             $this->publishes([
-                __DIR__ . '/../public' => public_path('vendor/monitoring'),
+                __DIR__.'/../public' => public_path('vendor/monitoring'),
             ], ['monitoring-assets', 'laravel-assets']);
         }
     }
 
     /**
-     * Register commands
+     * Register commands.
      *
      * @return void
      */
@@ -81,34 +81,34 @@ class MonitoringServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register routes
+     * Register routes.
      *
      * @return void
      */
     private function registerRoute()
     {
-        $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
+        $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
     }
 
     /**
-     * Register views
+     * Register views.
      *
      * @return void
      */
     private function registerViews()
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views/', 'monitoring');
+        $this->loadViewsFrom(__DIR__.'/../resources/views/', 'monitoring');
     }
 
     /**
-     * Load migrations
+     * Load migrations.
      *
      * @return void
      */
     private function loadMigrations()
     {
         if (config('monitoring.migrations', true) && $this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/');
+            $this->loadMigrationsFrom(__DIR__.'/../database/migrations/');
         }
     }
 }
