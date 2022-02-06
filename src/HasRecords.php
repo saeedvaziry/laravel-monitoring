@@ -24,6 +24,7 @@ trait HasRecords
     /**
      * @param array $instances
      * @param $duration
+     *
      * @return array
      */
     protected function getRecords(array $instances, $duration)
@@ -49,7 +50,7 @@ trait HasRecords
     private function getDurationInTime($duration = null)
     {
         return match ($duration) {
-            'day' => now()->subDay(),
+            'day'   => now()->subDay(),
             default => now()->subHour(),
         };
     }
