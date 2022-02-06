@@ -14,5 +14,7 @@
         <server name="APP_ENV" value="testing"/>
         <env name="APP_KEY" value="AckfSECXIvnK5r28GVIWUAxmbBSjTsmF"/>
         <server name="MONITORING_INSTANCE_NAME" value="test"/>
+        <!-- <server name="DB_DATABASE" value="laravel"/> -->
+        <!-- <server name="DB_USERNAME" value="root"/> -->
     </php>
 </phpunit>

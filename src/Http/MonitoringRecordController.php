@@ -19,11 +19,11 @@ class MonitoringRecordController extends Controller
     public function records(Request $request)
     {
         $request->validate([
-            'duration' => 'in:hour',
+            'duration' => 'in:hour,day',
         ]);
 
         $instances = $this->getInstances();
-        $charts = $this->getCharts($this->getRecords($instances));
+        $charts = $this->getRecords($instances, $request->duration);
 
         return response()->json([
             'instances' => $instances,

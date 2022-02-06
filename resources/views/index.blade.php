@@ -12,6 +12,7 @@
             prefix: '{{ config('monitoring.routes.prefix') }}'
         }
     </script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 min-h-screen text-gray-700 min-w-max">
     <div id="app" class="min-h-screen">

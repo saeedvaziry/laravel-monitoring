@@ -3,6 +3,7 @@
 namespace SaeedVaziry\Monitoring;
 
 use Illuminate\Support\ServiceProvider;
+use SaeedVaziry\Monitoring\Commands\PublishCommand;
 use SaeedVaziry\Monitoring\Commands\PurgeCommand;
 use SaeedVaziry\Monitoring\Commands\RecordCommand;
 
@@ -22,29 +23,6 @@ class MonitoringServiceProvider extends ServiceProvider
 
         // merge config file
         $this->mergeConfigFrom(__DIR__.'/../config/monitoring.php', 'monitoring');
-
-        // register command
-        $this->app->singleton('command.monitoring.record', function () {
-            return new RecordCommand();
-        });
-        $this->app->singleton('command.monitoring.purge', function () {
-            return new PurgeCommand();
-        });
-
-        // publish config
-        $this->publishes([
-            __DIR__.'/../config/monitoring.php' => config_path('monitoring.php'),
-        ], ['monitoring-config', 'laravel-config']);
-
-        // publish migrations
-        $this->publishes([
-            __DIR__.'/../database/migrations/' => database_path('migrations'),
-        ], ['monitoring-migrations', 'laravel-migrations']);
-
-        // publish assets
-        $this->publishes([
-            __DIR__.'/../public' => public_path('vendor/monitoring'),
-        ], ['monitoring-assets', 'laravel-assets']);
     }
 
     /**
@@ -54,32 +32,83 @@ class MonitoringServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // load migrations
-        if (config('monitoring.migrations', true) && $this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(__DIR__.'/../database/migrations/');
+        $this->loadMigrations();
+        $this->registerViews();
+        $this->registerRoute();
+        $this->registerCommands();
+        $this->registerPublishing();
+    }
+
+    /**
+     * Register publishing.
+     *
+     * @return void
+     */
+    private function registerPublishing()
+    {
+        if ($this->app->runningInConsole()) {
+            // publish config
+            $this->publishes([
+                __DIR__.'/../config/monitoring.php' => config_path('monitoring.php'),
+            ], ['monitoring-config', 'laravel-config']);
+
+            // publish migrations
+            $this->publishes([
+                __DIR__.'/../database/migrations/' => database_path('migrations'),
+            ], ['monitoring-migrations', 'laravel-migrations']);
+
+            // publish assets
+            $this->publishes([
+                __DIR__.'/../public' => public_path('vendor/monitoring'),
+            ], ['monitoring-assets', 'laravel-assets']);
         }
+    }
 
-        // register command
-        $this->commands(RecordCommand::class);
-        $this->commands(PurgeCommand::class);
+    /**
+     * Register commands.
+     *
+     * @return void
+     */
+    private function registerCommands()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                RecordCommand::class,
+                PurgeCommand::class,
+                PublishCommand::class,
+            ]);
+        }
+    }
 
-        // register routes
+    /**
+     * Register routes.
+     *
+     * @return void
+     */
+    private function registerRoute()
+    {
         $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
+    }
 
-        // register views
+    /**
+     * Register views.
+     *
+     * @return void
+     */
+    private function registerViews()
+    {
         $this->loadViewsFrom(__DIR__.'/../resources/views/', 'monitoring');
     }
 
     /**
-     * Get the services provided by the provider.
+     * Load migrations.
      *
-     * @return array
+     * @return void
      */
-    public function provides()
+    private function loadMigrations()
     {
-        return [
-            'command.monitoring.record',
-            'command.monitoring.purge',
-        ];
+        if (config('monitoring.migrations', true) && $this->app->runningInConsole()) {
+            $this->loadMigrationsFrom(__DIR__.'/../database/migrations/');
+        }
     }
 }

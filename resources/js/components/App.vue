@@ -5,9 +5,9 @@
                 <div class="max-w-5xl flex items-center justify-between mx-auto py-7 px-5">
                     <h2 class="text-2xl dark:text-gray-300">Monitoring Dashboard</h2>
                     <div class="flex items-center">
-                        <v-select class="mr-2" v-model="duration">
+                        <v-select class="mr-2" v-model="duration" @change="getData">
                             <option value="hour">Hour</option>
-                            <option value="day" disabled>Day</option>
+                            <option value="day">Day</option>
                         </v-select>
                         <v-icon-button type="button" @click="getData" :class="{'opacity-50': loading}" :disabled="loading">
                             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sync-alt" class="w-4 h-4 fill-current text-white" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M370.72 133.28C339.458 104.008 298.888 87.962 255.848 88c-77.458.068-144.328 53.178-162.791 126.85-1.344 5.363-6.122 9.15-11.651 9.15H24.103c-7.498 0-13.194-6.807-11.807-14.176C33.933 94.924 134.813 8 256 8c66.448 0 126.791 26.136 171.315 68.685L463.03 40.97C478.149 25.851 504 36.559 504 57.941V192c0 13.255-10.745 24-24 24H345.941c-21.382 0-32.09-25.851-16.971-40.971l41.75-41.749zM32 296h134.059c21.382 0 32.09 25.851 16.971 40.971l-41.75 41.75c31.262 29.273 71.835 45.319 114.876 45.28 77.418-.07 144.315-53.144 162.787-126.849 1.344-5.363 6.122-9.15 11.651-9.15h57.304c7.498 0 13.194 6.807 11.807 14.176C478.067 417.076 377.187 504 256 504c-66.448 0-126.791-26.136-171.315-68.685L48.97 471.03C33.851 486.149 8 475.441 8 454.059V320c0-13.255 10.745-24 24-24z"></path></svg>
@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div class="col-span-3 bg-white dark:bg-gray-800 dark:text-gray-300 rounded-md shadow p-3" style="height: 329px">
-                            <canvas :id="`${instance}-chart`" height="304" width="700" class="mx-auto"></canvas>
+                            <div :id="`${instance}-chart`" style="height: 304px" class="chart mx-auto"></div>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,6 @@
 <script>
     import axios from 'axios';
     import moment from "moment-timezone";
-    import Chart from 'chart.js';
     import VIconButton from "@/components/IconButton";
     import VLoader from "@/components/Loader";
     import VAlert from "@/components/Alert";
@@ -83,7 +82,8 @@
                 chartsData: {},
                 charts: {},
                 alerts: [],
-                duration: 'hour'
+                duration: 'hour',
+                theme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
             }
         },
         mounted() {
@@ -98,43 +98,62 @@
                     this.records = res.data.records;
                     this.chartsData = res.data.charts;
                     this.alerts = res.data.alerts;
-                    setTimeout(() => {
-                        this.instances.map((instance) => {
-                            this.chartsData[instance].labels.map((value, i) => {
-                                this.chartsData[instance].labels[i] = moment(value).tz(moment.tz.guess()).format('hh:mm')
-                            });
-                            this.generateChart(instance);
-                        })
-                    }, 100)
+                    this.instances.map(item => {
+                        this.generateChart(item);
+                    });
                 }).then(() => {
                     this.loading = false;
                 });
             },
             generateChart(instance) {
-                if (this.charts[instance]) {
-                    this.charts[instance].destroy();
-                }
-                let ctx = document.getElementById(instance + '-chart').getContext('2d');
-                this.charts[instance] = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: this.chartsData[instance].labels,
-                        datasets: this.chartsData[instance].datasets,
-                    },
-                    options: {
-                        responsive: false,
-                        scales: {
-                            yAxes: [{
-                                grid: {
-                                    color: '#f1f5f9'
-                                },
-                                min: 0,
+                google.charts.load('current', {'packages': ['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+                let _this = this;
+
+                function drawChart() {
+                    let chartData = [['Date', 'CPU', 'Memory', 'Disk']];
+                    _this.chartsData[instance].map(item => {
+                        chartData.push([
+                            new Date(moment(item.created_at).tz(moment.tz.guess()).format()),
+                            item.cpu,
+                            item.memory,
+                            item.disk,
+                        ])
+                    })
+                    let data = google.visualization.arrayToDataTable(chartData);
+                    let options = {
+                        curveType: 'function',
+                        displayExactValues: true,
+                        groupByRowLabel: true,
+                        colors: ['#2563eb', '#5d25eb', '#16af93'],
+                        chartArea: {
+                            width: '90%'
+                        },
+                        vAxis: {
+                            viewWindow: {
                                 max: 100,
-                                beginAtZero: true
-                            }]
-                        }
-                    }
-                });
+                                min: 0
+                            },
+                            textStyle: {
+                                color: _this.theme === 'dark' ? '#ffffff' : '#111729',
+                            }
+                        },
+                        hAxis: {
+                            textStyle: {
+                                color: _this.theme === 'dark' ? '#ffffff' : '#111729',
+                            }
+                        },
+                        legend: {
+                            position: 'bottom',
+                            textStyle: {
+                                color: _this.theme === 'dark' ? '#ffffff' : '#111729',
+                            }
+                        },
+                        backgroundColor: _this.theme === 'dark' ? '#111729' : '#ffffff'
+                    };
+                    let chart = new google.visualization.LineChart(document.getElementById(instance + '-chart'));
+                    chart.draw(data, options);
+                }
             }
         }
     }
