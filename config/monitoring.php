@@ -69,7 +69,7 @@ return [
         /*
          * Fill it if you want the Discord channel
          */
-        'discord_webhook_url' => env('MONITORING_DISCORD_WEBHOOK_URL')
+        'discord_webhook_url' => env('MONITORING_DISCORD_WEBHOOK_URL'),
     ],
 
     /*
