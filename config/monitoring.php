@@ -52,7 +52,8 @@ return [
     'notifications' => [
         'channels' => [
             \SaeedVaziry\Monitoring\Channels\Email::class,
-            // \SaeedVaziry\Monitoring\Channels\Slack::class
+            // \SaeedVaziry\Monitoring\Channels\Slack::class,
+            // \SaeedVaziry\Monitoring\Channels\Discord::class,
         ],
 
         /*
@@ -64,6 +65,11 @@ return [
          * Fill it if you want the Slack channel
          */
         'slack_webhook_url' => env('MONITORING_SLACK_WEBHOOK_URL'),
+
+        /*
+         * Fill it if you want the Discord channel
+         */
+        'discord_webhook_url' => env('MONITORING_DISCORD_WEBHOOK_URL')
     ],
 
     /*
