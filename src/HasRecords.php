@@ -49,10 +49,12 @@ trait HasRecords
      */
     private function getDurationInTime($duration = null)
     {
-        return match ($duration) {
-            'day'   => now()->subDay(),
-            default => now()->subHour(),
-        };
+        switch ($duration) {
+            case 'day':
+                return now()->subDay();
+            default:
+                return now()->subHour();
+        }
     }
 
     /**
