@@ -51,7 +51,7 @@ trait HasRecords
     {
         switch ($duration) {
             case 'day':
-                return now()->subDay();            
+                return now()->subDay();
             default:
                 return now()->subHour();
         }
