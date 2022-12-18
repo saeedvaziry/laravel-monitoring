@@ -26,10 +26,15 @@ jobs:
       fail-fast: true
       matrix:
         php: [ 7.3, 7.4, 8.0, 8.1 ]
-        laravel: [ ^8.0 ]
+        laravel: [ ^8.0, ^9.0 ]
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
 
       - name: Cache Composer packages
         id: composer-cache
