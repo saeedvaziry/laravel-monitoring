@@ -2,6 +2,8 @@
 
 namespace SaeedVaziry\Monitoring\Actions;
 
+use Illuminate\Database\Eloquent\Builder;
+
 class CheckForAlerts
 {
     /**
@@ -11,10 +13,10 @@ class CheckForAlerts
     {
         $alerts = app(config('monitoring.models.monitoring_alert'))
             ->where('instance_name', $record->instance_name)
-            ->where(function ($query) use ($record) {
-                $query->where('cpu', '<=', $record->cpu)
-                    ->orWhere('memory', '<=', $record->memory)
-                    ->orWhere('disk', '<=', $record->disk);
+            ->where(function (Builder $query) use ($record) {
+                $query->where('cpu', '<=', (float)$record->cpu)
+                    ->orWhere('memory', '<=', (float)$record->memory)
+                    ->orWhere('disk', '<=', (float)$record->disk);
             })
             ->get();
         foreach ($alerts as $alert) {
