@@ -14,9 +14,9 @@ class CheckForAlerts
         $alerts = app(config('monitoring.models.monitoring_alert'))
             ->where('instance_name', $record->instance_name)
             ->where(function (Builder $query) use ($record) {
-                $query->where('cpu', '<=', (float)$record->cpu)
-                    ->orWhere('memory', '<=', (float)$record->memory)
-                    ->orWhere('disk', '<=', (float)$record->disk);
+                $query->where('cpu', '<=', (float) $record->cpu)
+                    ->orWhere('memory', '<=', (float) $record->memory)
+                    ->orWhere('disk', '<=', (float) $record->disk);
             })
             ->get();
         foreach ($alerts as $alert) {
