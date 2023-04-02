@@ -16,8 +16,16 @@ This package works only on Linux servers.
 
 **1)** Install the latest version from composer
 
+For PHP >= 8.1
+
 ```shell
 composer require saeedvaziry/laravel-monitoring
+```
+
+For PHP <= 8.0
+
+```shell
+composer require saeedvaziry/laravel-monitoring "1.4.2"
 ```
 
 **2)** Publish vendors
